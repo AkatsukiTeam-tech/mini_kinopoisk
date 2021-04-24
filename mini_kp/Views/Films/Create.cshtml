@@ -1,0 +1,120 @@
+﻿@model mini_kp.Models.Film
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Film</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ru_name" class="control-label"></label>
+                <input asp-for="Ru_name" class="form-control" />
+                <span asp-validation-for="Ru_name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Year" class="control-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tagline" class="control-label"></label>
+                <input asp-for="Tagline" class="form-control" />
+                <span asp-validation-for="Tagline" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Poster" class="control-label"></label>
+                <input asp-for="Poster" class="form-control" />
+                <span asp-validation-for="Poster" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age_rating" class="control-label"></label>
+                <input asp-for="Age_rating" class="form-control" />
+                <span asp-validation-for="Age_rating" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="KP_rate" class="control-label"></label>
+                <input asp-for="KP_rate" class="form-control" />
+                <span asp-validation-for="KP_rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IMDB_rate" class="control-label"></label>
+                <input asp-for="IMDB_rate" class="form-control" />
+                <span asp-validation-for="IMDB_rate" class="text-danger"></span>
+            </div>
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Genres
+                            </button>
+                        </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul style="list-style-type:none">
+                                @foreach (var g in ViewBag.Genres)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="genreId" value="@g.Id" />
+                                        @g.Name
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Actors
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <ul style="list-style-type:none">
+                                @foreach (var a in ViewBag.Actors)
+                                {
+                                    <li>
+                                        <input type="checkbox" name="actorId" value="@a.Id" />
+                                        @a.Full_name
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
