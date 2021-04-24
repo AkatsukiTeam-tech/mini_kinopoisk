@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using mini_kp.Data;
 using mini_kp.Models;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,53 @@ namespace mini_kp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly KPContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(KPContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            ViewBag.Genres = _context.Genres;
+            ViewBag.Actors = _context.Actors;
+            return View(await _context.Films.ToListAsync());
+        }
+
+        public ActionResult SearchGenre(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Genre genre = _context.Genres.Find(id);
+
+            if (genre == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Genres = _context.Genres;
+            ViewBag.Actors = _context.Actors;
+            ViewBag.Countries = _context.Countries;
+            return View(genre.Films);
+        }
+
+        public ActionResult Asc()
+        {
+            var film = _context.Films.OrderByDescending(f => f.KP_rate);
+
+            ViewBag.Genres = _context.Genres;
+            ViewBag.Actors = _context.Actors;
+            return View(film);
+        }
+        public ActionResult Dsc()
+        {
+            var film = _context.Films.OrderBy(f => f.KP_rate);
+
+            ViewBag.Genres = _context.Genres;
+            ViewBag.Actors = _context.Actors;
+            return View(film);
         }
 
         public IActionResult Privacy()

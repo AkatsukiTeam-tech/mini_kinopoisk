@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<mini_kp.Models.Film>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ASC";
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -14,7 +14,7 @@
         });
     });
 </script>
-<h1>Index</h1>
+<h1>ASC</h1>
 <div class="row">
     <div class="form-group col-5">
         <input class="form-control" id="Input" type="text" placeholder="Films..">
@@ -47,22 +47,7 @@
     </div>
     <div class="form-group mr-2">
         <div class="form-group mr-2">
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                    <div class="card-header" style="padding: 0" id="headingOne">
-                        <h2 class="mb-0">
-                            <button class="btn btn-block dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                                /
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                        <a class="btn btn-block" asp-area="" asp-controller="Home" asp-action="Asc">Asc</a>
-                        <a class="btn btn-block" asp-area="" asp-controller="Home" asp-action="Dsc">Desc</a>
-                    </div>
-                </div>
-            </div>
+            <a class="btn btn-block" asp-area="" asp-controller="Home" asp-action="Dsc">Desc</a>
         </div>
     </div>
 </div>
@@ -120,7 +105,7 @@
                     @Html.DisplayFor(modelItem => item.IMDB_rate)
                 </td>
                 <td>
-                    <a asp-controller="Films" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
                 </td>
             </tr>
         }
